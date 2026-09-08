@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: selfcoach
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    com.selfcoach: debug
+
+# ------------------------------------------------------------------
+# 数据库（Phase 0 连接 PostgreSQL 16 + pgvector 时再启用）
+# 届时会引入 spring-boot-starter-data-r2dbc + r2dbc-postgresql，
+# 并把下面的连接信息改为你的实际配置。
+# ------------------------------------------------------------------
+# spring:
+#   r2dbc:
+#     url: r2dbc:postgresql://localhost:5432/selfcoach
+#     username: selfcoach
+#     password: selfcoach

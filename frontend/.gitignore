@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.local
+
+# IDE
+.idea/
+.vscode/
+
+# macOS / 系统
+.DS_Store

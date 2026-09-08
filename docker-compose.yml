@@ -1,0 +1,26 @@
+services:
+  # PostgreSQL 16 + pgvector：一个库同时管结构化数据与向量数据
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: selfcoach-postgres
+    environment:
+      POSTGRES_USER: selfcoach
+      POSTGRES_PASSWORD: selfcoach
+      POSTGRES_DB: selfcoach
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U selfcoach -d selfcoach"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # Langfuse 可观测平台（Phase 3 引入，先注释占位）
+  # langfuse:
+  #   image: langfuse/langfuse:2
+  #   ...
+
+volumes:
+  pgdata:

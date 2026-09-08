@@ -1,0 +1,21 @@
+# 环境变量与密钥（云端数据库 / LLM API 凭据，绝不入库）
+.env
+.env.*
+!.env.example
+
+# 本地覆盖配置（如果后续用 application-local.yml 存敏感信息）
+application-local.yml
+application-local.properties
+
+# 日志
+*.log
+logs/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# 系统
+.DS_Store
+Thumbs.db
