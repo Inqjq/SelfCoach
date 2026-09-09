@@ -13,6 +13,14 @@ spring:
     username: ${DB_USER:selfcoach}
     password: ${DB_PASSWORD:selfcoach}
 
+# LLM / Embedding 接入（阿里云百炼，OpenAI 兼容协议）。
+# key 严格走环境变量，绝不写进代码库；base-url 可按你的区域调整。
+llm:
+  base-url: ${BAILIAN_BASE_URL:https://dashscope.aliyuncs.com/compatible-mode/v1}
+  api-key: ${BAILIAN_API_KEY:}
+  embedding-model: ${EMBEDDING_MODEL:qwen3.7-text-embedding-flash}
+  chat-model: ${CHAT_MODEL:qwen3.8-flash}
+
 management:
   endpoints:
     web:

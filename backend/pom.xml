@@ -44,6 +44,13 @@
             <artifactId>r2dbc-postgresql</artifactId>
         </dependency>
 
+        <!-- Lucene：BM25 关键词检索（第 6 步建倒排索引用；纯 Java，业界级实现） -->
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+            <version>9.11.1</version>
+        </dependency>
+
         <!-- 测试 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
