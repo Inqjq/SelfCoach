@@ -19,3 +19,9 @@ logs/
 # 系统
 .DS_Store
 Thumbs.db
+
+# 多窗口角色工作目录（各自独立 clone 的 git 仓库，不进主仓版本控制）
+/selfcoach-backend/
+/selfcoach-frontend/
+/selfcoach-test/
+/selfcoach-review/
