@@ -34,6 +34,16 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <!-- 响应式数据访问（R2DBC）接入 PostgreSQL 16 + pgvector -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-r2dbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>r2dbc-postgresql</artifactId>
+        </dependency>
+
         <!-- 测试 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

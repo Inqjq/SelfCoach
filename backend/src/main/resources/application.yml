@@ -5,6 +5,14 @@ spring:
   application:
     name: selfcoach
 
+  # 数据库连接（Phase 0 第 2 步：接入云服务器 PostgreSQL 16 + pgvector）
+  # 连接信息全部走环境变量，凭据不进代码库。
+  # 选项 A：后端与数据库在同一台云服务器，故默认连 localhost:5432。
+  r2dbc:
+    url: r2dbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:selfcoach}
+    username: ${DB_USER:selfcoach}
+    password: ${DB_PASSWORD:selfcoach}
+
 management:
   endpoints:
     web:
@@ -14,14 +22,3 @@ management:
 logging:
   level:
     com.selfcoach: debug
-
-# ------------------------------------------------------------------
-# 数据库（Phase 0 连接 PostgreSQL 16 + pgvector 时再启用）
-# 届时会引入 spring-boot-starter-data-r2dbc + r2dbc-postgresql，
-# 并把下面的连接信息改为你的实际配置。
-# ------------------------------------------------------------------
-# spring:
-#   r2dbc:
-#     url: r2dbc:postgresql://localhost:5432/selfcoach
-#     username: selfcoach
-#     password: selfcoach
