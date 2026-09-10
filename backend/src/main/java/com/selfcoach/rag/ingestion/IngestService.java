@@ -1,6 +1,7 @@
 package com.selfcoach.rag.ingestion;
 
 import com.selfcoach.llm.EmbeddingClient;
+import com.selfcoach.rag.search.LuceneIndexService;
 import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -21,11 +22,13 @@ public class IngestService {
     private final EmbeddingClient embedClient;
     private final DatabaseClient db;
     private final DocumentChunker chunker;
+    private final LuceneIndexService luceneIndex;
 
-    public IngestService(EmbeddingClient embedClient, DatabaseClient db) {
+    public IngestService(EmbeddingClient embedClient, DatabaseClient db, LuceneIndexService luceneIndex) {
         this.embedClient = embedClient;
         this.db = db;
         this.chunker = new DocumentChunker(600);
+        this.luceneIndex = luceneIndex;
     }
 
     /**
@@ -37,7 +40,9 @@ public class IngestService {
         return Flux.range(0, chunks.size())
                 .concatMap(i -> embedClient.embed(chunks.get(i))
                         .flatMap(vec -> insert(docId, i, chunks.get(i), vec, source).thenReturn(1)))
-                .reduce(0, Integer::sum);
+                .reduce(0, Integer::sum)
+                // 入库成功后失效 Lucene 内存索引，下次检索重建，保证「入库 → 检索」能立刻看到新数据
+                .doOnSuccess(n -> { if (n != null && n > 0) luceneIndex.invalidate(); });
     }
 
     /** 用原生 SQL 写入一行 doc_chunk。embedding 以 `[...]::vector` 形式交给 pgvector。 */
