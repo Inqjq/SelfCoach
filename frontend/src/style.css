@@ -1,0 +1,249 @@
+/* SelfCoach 全局设计令牌 + 基础样式
+   基调：健身 / 自律的力量感 —— 墨岩底、熔橙唯一强调、直线条、极小圆角、紧凑左对齐 */
+
+:root {
+  color-scheme: dark; /* 让原生控件（日期 / 数字 / 滚动条）跟随深色主题 */
+
+  /* 色板 */
+  --bg: #141719;        /* 墨岩：主背景 */
+  --panel: #212526;     /* 面板 */
+  --panel-2: #2a2e30;   /* 交互面 / 输入底 / hover */
+  --line: #34393b;      /* 发丝级分隔线 */
+  --text: #edf2f1;      /* 骨白：正文 */
+  --muted: #929c9a;     /* 钢灰：次级文字 */
+  --accent: #f25c05;    /* 熔橙：全站唯一强调色 */
+  --accent-strong: #d35004;
+  --accent-ink: #141719; /* 橙色上的深色文字，保证对比度 */
+
+  --radius: 3px;
+  --font: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #app { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 可见的键盘焦点（无障碍） */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* 数据 / 大数字：粗重 + 等宽数字，教练面板感 */
+.num {
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* 每个模块的统一排版框 */
+.view {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 40px 64px;
+}
+.view-head {
+  padding-bottom: 18px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+.view-head h1 {
+  margin: 0 0 4px;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.view-head p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* 按钮：主行动用熔橙，次要用幽灵样式 */
+.btn {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  padding: 9px 18px;
+  cursor: pointer;
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.btn:hover:not(:disabled) { background: var(--accent-strong); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn.ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--line);
+}
+.btn.ghost:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+
+/* 输入 */
+.input {
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 9px 12px;
+  width: 100%;
+}
+.input:focus { border-color: var(--accent); outline: none; }
+.input::placeholder { color: var(--muted); }
+
+/* 空状态：给方向 */
+.empty { padding: 56px 4px; }
+.empty .kicker {
+  margin: 0 0 6px;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.empty h2 {
+  margin: 0 0 6px;
+  font-size: 17px;
+  font-weight: 700;
+}
+.empty p {
+  margin: 0 0 20px;
+  color: var(--muted);
+  max-width: 44em;
+}
+
+/* 小标签 */
+.tag {
+  display: inline-block;
+  padding: 1px 7px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* 模块级共用：统计大数字、表单面板、错误条、loading 提示 */
+
+.stat {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  margin-bottom: 20px;
+}
+.stat-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.stat-label {
+  color: var(--muted);
+  font-size: 14px;
+}
+.stat-value {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 6px;
+}
+.stat-value .num {
+  font-size: 64px;
+  line-height: 1;
+  color: var(--accent);
+}
+.stat-unit {
+  color: var(--text);
+  font-size: 20px;
+  font-weight: 600;
+}
+.stat-note {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.form-panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  margin-bottom: 20px;
+}
+.form-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+.field span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.form-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn.small {
+  padding: 5px 12px;
+  font-size: 13px;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 14px;
+  padding: 8px 0;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  border: 1px solid var(--accent);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  font-size: 14px;
+}
+.error-close {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 13px;
+}
+.error-close:hover { color: var(--accent); }
+
+/* 用户偏好减少动效 */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
