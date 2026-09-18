@@ -53,5 +53,10 @@ export const api = {
   },
   latestBodyMetric() {
     return request('/api/body-metrics/latest')
+  },
+
+  // 训练计划（F-04）
+  generatePlan(payload) {
+    return request('/api/plan/generate', { method: 'POST', body: payload })
   }
 }
